@@ -10,7 +10,6 @@ export default async function Home() {
       return <Redirect to="/chat" />;
     }
   return <div className="flex justify-center items-center min-h-screen bg-slate-950 text-white">
-
     <LandingPage />
   </div>
 }

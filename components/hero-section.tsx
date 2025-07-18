@@ -28,14 +28,14 @@ export function HeroSection() {
 
       <div className="container px-4 md:px-6 relative z-10">
         <div className="flex flex-col items-center space-y-8 text-center">
-          <div className="space-y-6 max-w-4xl">
+          <div className="space-y-6 max-w-4xl pt-22">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 text-blue-300 text-sm font-medium mb-6 backdrop-blur-sm">
               <Sparkles className="h-4 w-4" />
               AI-Powered Data Analysis
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 blur-xl"></div>
             </div>
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
-              <span className="bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent leading-tight">
+              <span className="bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent leading-tight pr-4">
                 Transform Data into
               </span>
               <span className="block bg-gradient-to-r from-blue-400 via-purple-400 pb-2 to-pink-400 bg-clip-text text-transparent">
@@ -46,6 +46,9 @@ export function HeroSection() {
               Upload your datasets and let our AI automatically analyze, visualize, and extract meaningful insights.
               <span className="text-blue-300"> No coding required</span>, just intelligent data interpretation.
             </p>
+          </div>
+          <div className="pb-26">
+
           </div>
         </div>
       </div>
