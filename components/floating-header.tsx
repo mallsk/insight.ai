@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Brain } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Login from "./login"
 
 export function FloatingHeader() {
   const [scrolled, setScrolled] = useState(false)
@@ -57,12 +58,7 @@ export function FloatingHeader() {
         </nav>
 
         <div className="flex gap-2">
-          <Button
-            size="sm"
-            className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105 backdrop-blur-sm"
-          >
-            Sign in
-          </Button>
+          <Login />
         </div>
       </div>
 
