@@ -1,17 +1,19 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
 export async function GET(
-  request: Request,
-  { params }: { params: { link: string } }
+  request: NextRequest,
+  { params }: { params: { chatlink: string } }
 ) {
   try {
     const messages = await prisma.message.findMany({
-      where: { chatId: params.link },
+      where: { chatId: params.chatlink },
       orderBy: { createdAt: 'asc' },
     });
+
     return NextResponse.json(messages);
   } catch (error) {
+    console.error('Error fetching messages:', error);
     return NextResponse.json(
       { error: 'Failed to fetch messages.' },
       { status: 500 }
@@ -19,25 +21,32 @@ export async function GET(
   }
 }
 
-// Save a new message to a specific chat
 export async function POST(
-  request: Request,
-  { params }: { params: { link: string } }
+  request: NextRequest,
+  { params }: { params: { chatlink: string } }
 ) {
   try {
-    const body = await request.json();
-    const { type, text, chartData } = body;
+    const { type, text, chartData } = await request.json();
 
-    const newMessage = await prisma.message.create({
+    if (!type || !text) {
+      return NextResponse.json(
+        { error: 'Missing message type or text.' },
+        { status: 400 }
+      );
+    }
+
+    const message = await prisma.message.create({
       data: {
-        chatId: params.link,
+        chatId: params.chatlink,
         type,
         text,
         chartData: chartData || undefined,
       },
     });
-    return NextResponse.json(newMessage);
+
+    return NextResponse.json(message);
   } catch (error) {
+    console.error('Error saving message:', error);
     return NextResponse.json(
       { error: 'Failed to save message.' },
       { status: 500 }

@@ -8,12 +8,23 @@ import { Button } from "@/components/ui/button"; // Assuming you use shadcn/ui
 interface AiApiResponse {
   message: string;
 }
-export default function DashboardMain() {
+export default function DashboardMain({
+  chatLink,
+  initialMessages = [],
+}: {
+  chatLink: string;
+  initialMessages: {
+    id: number;
+    text: string;
+    type: "user" | "ai";
+    chartData?: any;
+    createdAt: string;
+  }[];
+}) {
+  
   const [inputText, setInputText] = useState("");
   const [attachedFile, setAttachedFile] = useState<File | null>(null);
-  const [messages, setMessages] = useState<
-    { type: "user" | "ai"; text: string }[]
-  >([]);
+  const [messages, setMessages] = useState(initialMessages);
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const endRef = useRef<HTMLDivElement>(null);
@@ -36,41 +47,71 @@ export default function DashboardMain() {
   };
 
   const handleSend = async () => {
-    if (!inputText.trim() || !attachedFile) return;
+  if (!inputText.trim() || !attachedFile) return;
 
-    setMessages((prev) => [...prev, { type: "user", text: inputText }]);
-    setInputText("");
-    setLoading(true);
+  // Append user message immediately
+  setMessages((prev) => [
+  ...prev,
+  {
+    id: Date.now(), // or use a UUID if needed
+    text: inputText,
+    type: "user",
+    createdAt: new Date().toISOString(),
+  },
+]);
+  setInputText("");
+  setLoading(true);
 
-    const formData = new FormData();
-    formData.append("file", attachedFile);
-    formData.append("query", inputText);
+  const formData = new FormData();
+  formData.append("file", attachedFile);
+  formData.append("query", inputText);
 
-    try {
-      const res = await axios.post("/api/user/chat", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+  // 💡 Only add chatLink if one exists
+  if (chatLink) {
+    formData.append("chatLink", chatLink);
+  }
 
-      // Original line with error
-      const data = res.data as { message: string; result: any }; // This was in the original user-provided code
+  try {
+    const res = await axios.post("/api/user/chat", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
 
-      // Corrected and simplified version
-      const response = res.data as AiApiResponse;
-      const aiResponse = response.message || "Sorry, I could not get a response.";
+    const data = res.data as { message: string; chatLink: string };
 
-      setMessages((prev) => [...prev, { type: "ai", text: aiResponse }]);
-    } catch (error: any) {
-      console.error(error);
-      const errorMessage =
-        error.response?.data?.error || "❌ Something went wrong.";
-      setMessages((prev) => [...prev, { type: "ai", text: errorMessage }]);
-    } finally {
-      setLoading(false);
-      // Clear the file input after sending
-      setAttachedFile(null);
-      if (fileInputRef.current) fileInputRef.current.value = "";
+    const aiResponse = data.message || "Sorry, no response.";
+    setMessages((prev) => [
+  ...prev,
+  {
+    id: Date.now(), // or use a UUID if needed
+    text: inputText,
+    type: "user",
+    createdAt: new Date().toISOString(),
+  },
+]);
+
+    // ✅ Redirect if this was the first message (no chatLink yet)
+    if (!chatLink && data.chatLink) {
+      window.location.href = `/chat/${data.chatLink}`;
     }
-  };
+  } catch (error: any) {
+    console.error(error);
+    const errorMessage =
+      error.response?.data?.error || "❌ Something went wrong.";
+    setMessages((prev) => [
+  ...prev,
+  {
+    id: Date.now(), // or use a UUID if needed
+    text: inputText,
+    type: "user",
+    createdAt: new Date().toISOString(),
+  },
+]);
+  } finally {
+    setLoading(false);
+    setAttachedFile(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  }
+};
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
