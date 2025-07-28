@@ -5,16 +5,9 @@ import { FloatingHeader } from "@/components/floating-header"
 import { Footer } from "@/components/footer"
 import { HeroSection } from "@/components/hero-section"
 import { HowItWorksSection } from "@/components/how-it-works-section"
-import { Redirect } from "@/components/redirect"
-import authOptions from "@/lib/auth"
-import { getServerSession } from "next-auth"
 
 
 export default async function LandingPage() {
-    const session = await getServerSession(authOptions)
-    if(session?.user){
-        return <Redirect to="/chat" />
-    }
   return (
     <div className="flex flex-col min-h-screen bg-slate-950 text-white overflow-hidden">
       <FloatingHeader />
