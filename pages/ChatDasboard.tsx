@@ -329,7 +329,7 @@ export default function ChatDashboard() {
 
             <div className="flex items-center gap-2">
               <div className="h-8 w-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
-                <Brain className="h-5 w-5 text-white" />
+                <img src="/insight.png" className="h-8 w-8 text-white border-1 rounded-md" />
               </div>
               <span className="font-semibold text-xl bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                 <button className="cursor-pointer" onClick={()=>{

@@ -12,13 +12,16 @@ export function College() {
               src="./gmulogo1.png"
               className="h-16 w-16 rounded-full border-2"
               alt=""
-              />
+            />
             <div>
-              <h2 className="text-3xl font-bold tracking-tighter pb-2 sm:text-4xl md:text-5xl bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
+              <h2 className="text-3xl tracking-wider pt-2 font-bold pb-8 tracking-tighter pb-2 sm:text-4xl md:text-5xl bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
                 GM University, Davanagere
               </h2>
               <p className="text-xl text-slate-300 leading-relaxed">
-                Invested seed money
+                GM University proudly seed-funded the development of Insight.ai,
+                An innovative platform transforming how we analyze data with AI.
+                Backed by vision and support from the university's startup cell,
+                Insight.ai began its journey to empower insights that excel.
               </p>
             </div>
           </div>
