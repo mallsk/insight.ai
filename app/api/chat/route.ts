@@ -93,6 +93,8 @@ User's question:
 2. Only use one of the following supported chart types: **bar**, **line**, **pie**, or **scatter**.
 3. If the user does not mention a chart type, default to **bar**.
 4. Your output should include three keys: "type", "data", and optionally "options".
+5. Use colors where mention backgroundColor and borderColor look like more contrast like excel sheets graph.
+6. If user uploads large data set, you must should group the data set to represent 
 
 ### Chart Format Examples:
 
@@ -105,7 +107,7 @@ User's question:
       {
         "label": "Sales",
         "data": [100, 200, 150],
-        "backgroundColor": "rgba(54, 162, 235, 0.2)",
+        "backgroundColor": "rgba(255, 249, 186, 0.9)",
         "borderColor": "rgba(54, 162, 235, 1)",
         "borderWidth": 1
       }
@@ -128,8 +130,8 @@ User's question:
       {
         "label": "Revenue",
         "data": [500, 600, 750],
-        "borderColor": "rgba(75, 192, 192, 1)",
-        "backgroundColor": "rgba(75, 192, 192, 0.2)",
+        "borderColor": "rgba(238, 255, 0, 1)",
+        "backgroundColor": "rgba(53, 78, 78, 0.33)",
         "tension": 0.4
       }
     ]
@@ -179,8 +181,8 @@ User's question:
           { "x": 2, "y": 60 },
           { "x": 3, "y": 70 }
         ],
-        "backgroundColor": "rgba(153, 102, 255, 0.2)",
-        "borderColor": "rgba(153, 102, 255, 1)"
+        "backgroundColor": "rgba(255, 188, 87, 1)",
+        "borderColor": "rgba(0, 0, 0, 1)"
       }
     ]
   },

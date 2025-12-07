@@ -446,7 +446,7 @@ export default function ChatDashboard() {
                 </div>
 
                 {msg.type === "ai" && msg.chart && (
-                  <div className="w-5xl">
+                  <div className="w-5xl p-8 bg-white/5 rounded-lg">
                     <ChartRenderer key={idx} chart={msg.chart} />
                   </div>
                 )}
